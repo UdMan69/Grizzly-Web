@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grizzly Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom orange-950 - This was part of the original but not used after color changes */
+        /* .bg-orange-950 { --tw-bg-opacity: 1; background-color: rgb(153 27 27 / var(--tw-bg-opacity)); } */
+        
+        /* Custom orange-400 - This was part of the original but not used after color changes */
+        /* .text-orange-400 { --tw-text-opacity: 1; color: rgb(251 146 60 / var(--tw-text-opacity)); } */
+        
+        /* Border orange-700 - This was part of the original but not used after color changes */
+        /* .border-orange-700 { border-color: rgb(194 91 23 / var(--tw-border-opacity)); } */
+        
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, #1e293b, #1d4ed8); /* Original gradient, consider changing if this should also be grey/black */
+        }
+
+        /* Custom styles for modern design and animations */
+        .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border-radius: 1rem;
+            padding: 2.5rem; /* Increased padding */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Added for button alignment */
+            flex-direction: column; /* Added for button alignment */
+            justify-content: space-between; /* Added for button alignment */
+            min-height: 220px; /* Added a minimum height */
+        }
+
+        .glassmorphism:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-box {
+            background-color: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex; /* Added */
+            flex-direction: column; /* Added */
+            align-items: center; /* Added */
+            justify-content: center; /* Added */
+            text-align: center; /* Added */
+            min-height: 100px; /* Added a minimum height */
+        }
+
+        .feature-box:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .pulsing-button {
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+            opacity: 0;
+            animation-play-state: running; /* Ensure animation plays */
+        }
+
+        @keyframes slideInLeft {
+            0% { transform: translateX(-50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+            opacity: 0;
+            animation-play-state: running; /* Ensure animation plays */
+        }
+
+        @keyframes slideInRight {
+            0% { transform: translateX(50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+            opacity: 0;
+            animation-play-state: running; /* Ensure animation plays */
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .buy-button {
+            margin-top: 1.5rem; /* Increased margin */
+        }
+
+        .anti-cheat-logo {
+            max-width: 80%; /* Adjust as needed */
+            height: auto;
+            border-radius: 0.5rem; /* Optional: Add some rounding */
+            margin-bottom: 1rem; /* Add space below the logo */
+        }
+
+        .feature-icon {
+            width: 50px; /* Adjust as needed */
+            height: 50px; /* Adjust as needed */
+            margin-bottom: 0.5rem; /* Add space below the icon */
+        }
+
+        .animated { /* New class to ensure animation plays */
+            animation-play-state: running !important;
+        }
+        .not-animated {
+            animation-play-state: paused;
+        }
+
+        /* Dark/Light Mode Styles */
+        body.light-mode {
+            background-color: #f0f0f0; /* Light background */
+            color: #333; /* Darker text */
+        }
+
+        .light-mode .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-mode .feature-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-mode .text-white {
+            color: #333; /* Change white text to dark in light mode */
+        }
+
+        .light-mode .text-gray-300 {
+            color: #555; /* Adjust gray text for light mode */
+        }
+
+        .light-mode .text-gray-400 {
+            color: #777; /* Adjust gray text for light mode */
+        }
+        /* Changed from orange-400 to a dark grey for light mode */
+        .light-mode .text-gray-400 { 
+            color: #4a4a4a; /* Adjust dark grey text for light mode */
+        }
+
+        /* Adjust button colors in light mode */
+        .light-mode .bg-gray-700 {
+            background-color: #555; /* Darker grey for buttons in light mode */
+        }
+        .light-mode .hover:bg-gray-600:hover {
+            background-color: #444; /* Even darker grey on hover for buttons in light mode */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-400 tracking-tight">Grizzy<span class="text-white">Services</span></h1>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#features" class="text-gray-300 hover:text-white transition-colors">Features</a></li>
+                    <li><a href="#pricing" class="text-gray-300 hover:text-white transition-colors">Pricing</a></li>
+                </ul>
+            </nav>
+            <a href="#purchase" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3.5 px-8 rounded-full transition-colors duration-300 text-lg">Purchase</a>
+        </div>
+    </header>
+
+    <main class="py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <section class="text-center space-y-6">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600 slide-in-left">
+                    Unlock Your Gaming Potential
+                </h2>
+                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto fade-in">
+                    Bypass restrictions and play your favorite games without limitations. Our advanced HWID spoofer ensures you stay undetected.
+                </p>
+                <a href="#purchase" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3.5 px-8 rounded-full transition-colors duration-300 text-lg shadow-lg transform hover:scale-105 pulsing-button">
+                    Get Started Now
+                </a>
+            </section>
+
+            <section id="features" class="space-y-8">
+                <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-400">Key Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-box slide-in-left">
+                        <img src="https://via.placeholder.com/50" alt="All Mobos Supported" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">All Mobos</h3>
+                        <p class="text-gray-300">
+                            Change your hardware ID to bypass bans and restrictions.
+                        </p>
+                    </div>
+                    <div class="feature-box">
+                        <img src="https://static.wixstatic.com/media/b5a7ab_4e41bbd7342146b68ce69e6e0ca3bd9c~mv2.png/v1/fill/w_43,h_43,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Cado%20Script%20TICK.png" alt="TPM Bypass" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">TPM Bypass</h3>
+                        <p class="text-gray-300">
+                            Stay ahead with frequent updates to ensure compatibility.
+                        </p>
+                    </div>
+                    <div class="feature-box slide-in-right">
+                           <img src="https://via.placeholder.com/50" alt="MAC Spoof" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">MAC Spoof</h3>
+                        <p class="text-gray-300">
+                            Simple and intuitive interface for quick setup.
+                        </p>
+                    </div>
+                    <div class="feature-box slide-in-left">
+                        <img src="https://via.placeholder.com/50" alt="Windows 10 & 11 Supported" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">Windows 10 & 11</h3>
+                        <p class="text-gray-300">
+                            Advanced techniques to avoid detection.
+                        </p>
+                    </div>
+                    <div class="feature-box">
+                        <img src="https://static.wixstatic.com/media/b5a7ab_4e41bbd7342146b68ce69e6e0ca3bd9c~mv2.png/v1/fill/w_43,h_43,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Cado%20Script%20TICK.png" alt="Easy to Setup" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">Easy to Setup</h3>
+                        <p class="text-gray-300">
+                            Dedicated support team ready to assist you.
+                        </p>
+                    </div>
+                    <div class="feature-box slide-in-right">
+                        <img src="https://via.placeholder.com/50" alt="Undetected" class="feature-icon">
+                        <h3 class="text-xl font-semibold text-white mb-2">Undetected</h3>
+                        <p class="text-gray-300">
+                            Reliable and secure solution for uninterrupted gaming.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pricing" class="space-y-8">
+                <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-400">Pricing Plans</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glassmorphism">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Trial</h3>
+                        <p class="text-gray-300 mb-4">Free</p>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>Limited Features</li>
+                            <li>Short Duration</li>
+                            <li>Basic Support</li>
+                        </ul>
+                        <a href="#purchase" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-center buy-button">
+                            Get Trial
+                        </a>
+                    </div>
+                    <div class="glassmorphism">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Monthly</h3>
+                        <p class="text-gray-300 mb-4">$29.99</p>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>Full Features</li>
+                            <li>1 Month Access</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <a href="#purchase" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-center buy-button">
+                            Buy Monthly
+                        </a>
+                    </div>
+                    <div class="glassmorphism">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Lifetime</h3>
+                        <p class="text-gray-300 mb-4">$99.99</p>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>All Features</li>
+                            <li>Lifetime Access</li>
+                            <li>24/7 Support</li>
+                        </ul>
+                        <a href="#purchase" class="mt-6 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300 w-full text-center buy-button">
+                            Buy Lifetime
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="anti-cheats" class="space-y-8">
+                <h2 class="text-3xl sm:text-4xl font-semibold text-center text-gray-400">Anti-Cheat Compatibility</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glassmorphism">
+                        <img src="https://static.wixstatic.com/media/b5a7ab_2ad6c6d7f599485b832616a072606023~mv2.png/v1/fill/w_106,h_106,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Cado%20Spoofer%20Support-189-187.png" alt="BattlEye Logo" class="anti-cheat-logo">
+                        <h3 class="text-2xl font-semibold text-white mb-4">BattlEye</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>Escape from Tarkov</li>
+                            <li>Games Supported:</li>
+                            <li class="ml-4">PUBG</li>
+                            <li class="ml-4">Rainbow Six Siege</li>
+                            <li class="ml-4">All Other BE Games</li>
+                        </ul>
+                    </div>
+                    <div class="glassmorphism">
+                        <img src="https://www.easy.ac/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-easy.fe9415df.png&w=384&q=75" alt="Easy Anti-Cheat Logo" class="anti-cheat-logo">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Easy Anti-Cheat</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>Games Supported:</li>
+                            <li class="ml-4">All Other EAC Games</li>
+                            <li class="ml-4">Rust</li>
+                            <li class="ml-4">Apex Legends</li>
+                            <li class="ml-4">Fortnite</li>
+                        </ul>
+                    </div>
+                    <div class="glassmorphism">
+                        <img src="https://static.wixstatic.com/media/b5a7ab_fdda6e190b614661bbf3785b6d1041b1~mv2.png/v1/fill/w_106,h_106,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Cado%20Spoofer%20Support.png" alt="Ricochet Logo" class="anti-cheat-logo">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Ricochet</h3>
+                        <ul class="space-y-2 text-gray-300">
+                             <li>Games Supported:</li>
+                            <li class="ml-4">Call of Duty: MW3</li>
+                            <li class="ml-4">Call of Duty: Vanguard</li>
+                            <li class="ml-4">Call of Duty: Warzone</li>
+                            <li class="ml-4">Call of Duty: MW2</li>
+                            <li class="ml-4">Vanguard</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="purchase" class="text-center space-y-4">
+                <h2 class="text-3xl sm:text-4xl font-semibold text-gray-400">Ready to Get Started?</h2>
+                <p class="text-lg text-gray-300">Choose a plan and unlock the full potential of your gaming experience.</p>
+                <a href="#pricing" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3.5 px-8 rounded-full transition-colors duration-300 text-lg shadow-lg transform hover:scale-105">
+                    Purchase Now
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center text-gray-400">
+            <p>&copy; 2025 Grizzly Services. All rights reserved.</p>
+            <p>Terms of Service | Privacy Policy</p>
+        </div>
+    </footer>
+
+    <button id="theme-toggle" class="fixed bottom-4 right-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-colors duration-300">
+        Toggle Theme
+    </button>
+
+    <script>
+        // Simple scroll-based animations (vanilla JavaScript)
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in');
+            let animationStarted = false; // Add this line
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animationStarted) { // Check if animation has started
+                        entry.target.classList.add('animated'); // Add 'animated' class
+                        entry.target.classList.remove('not-animated');
+                        animationStarted = true; // Set flag to true
+                        observer.unobserve(entry.target); // Optional: Stop observing after animating once
+                    }
+                });
+            }, {
+                threshold: 0.15 // Adjust as needed
+            });
+
+            elementsToAnimate.forEach(element => {
+                element.classList.add('not-animated'); // Add a class to prevent initial animation
+                observer.observe(element);
+            });
+
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+            });
+        });
+    </script>
+</body>
+</html>
