@@ -1,1 +1,1 @@
-UD this is showing from a raw github link and showing it link:
+UD this is showing from a raw github link and showing it link: https://raw.githubusercontent.com/UdMan69/Grizzly-Web/refs/heads/main/status.txt
